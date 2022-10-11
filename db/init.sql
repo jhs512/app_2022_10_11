@@ -1,0 +1,9 @@
+# 테스트 DB 생성
+DROP DATABASE IF EXISTS app__2022_10_11__test;
+CREATE DATABASE app__2022_10_11__test;
+USE app__2022_10_11__test;
+
+# 개발 DB 생성
+DROP DATABASE IF EXISTS app__2022_10_11__dev;
+CREATE DATABASE app__2022_10_11__dev;
+USE app__2022_10_11__dev;
