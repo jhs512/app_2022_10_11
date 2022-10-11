@@ -29,5 +29,5 @@ logging:
     org.hibernate.type.descriptor.sql: trace
 custom:
   site:
-    name: ??
+    name: MUT
     baseUrl: "http://localhost:8010"
