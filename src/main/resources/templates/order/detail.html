@@ -20,10 +20,31 @@
         const tossPayments = TossPayments("test_ck_BE92LAa5PVbDMxDgLzB87YmpXyJj");
 
         function payment() {
+            const $PaymentForm__useRestCash = $("#PaymentForm__useRestCash");
+
+            let useRestCash = parseInt($PaymentForm__useRestCash.val());
+
+            if ( useRestCash == NaN ) {
+                useRestCash = 0;
+            }
+
+            const minUseRestCash = parseInt($PaymentForm__useRestCash.attr('min'));
+            const maxUseRestCash = parseInt($PaymentForm__useRestCash.attr('max'));
+
+            if ( useRestCash > maxUseRestCash ) {
+                useRestCash = maxUseRestCash;
+                $PaymentForm__useRestCash.val(maxUseRestCash);
+            }
+
+            if ( orderPayPrice == useRestCash ) {
+                document.payByRestCashOnlyForm.submit();
+                return;
+            }
+
             const method = "카드"; // "카드" 혹은 "가상계좌"
 
             const paymentData = {
-                amount: orderPayPrice,
+                amount: orderPayPrice - useRestCash,
                 orderId: "order__" + orderId + "__" + (Math.random() + "").substring(2),
                 orderName,
                 customerName: buyerName,
@@ -35,6 +56,9 @@
         }
     </script>
 
+    <form hidden name="payByRestCashOnlyForm" method="POST" th:action="@{|/order/${order.id}/payByRestCashOnly|}">
+
+    </form>
 
     <section class="section section-write container mx-auto">
 
@@ -42,6 +66,7 @@
             <h1 class="font-bold text-lg">주문 상세내용</h1>
 
             <div class="flex flex-col gap-3 mt-3">
+
                 <div>
                     주문번호 : [[${order.id}]]
                 </div>
@@ -69,7 +94,14 @@
                 </div>
 
                 <div>
-                    <button onclick="payment();" class="btn btn-sm btn-primary">카드결제</button>
+                    <div>
+                        보유 예치금 : [[${actorRestCash}]]
+                    </div>
+                    <div>
+                        <input type="number" id="PaymentForm__useRestCash" placeholder="사용할 예치금" class="input input-bordered min-w-[300px]" min="0" th:max="${order.calculatePayPrice > actorRestCash ? actorRestCash : order.calculatePayPrice}">
+                    </div>
+                    <button th:if="${order.payable}" onclick="payment();" class="btn btn-sm btn-primary">카드결제</button>
+                    <span th:if="${order.isPaid}">결제완료</span>
                 </div>
             </div>
         </div>
