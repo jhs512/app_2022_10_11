@@ -117,4 +117,8 @@ public class OrderService {
         order.setPaymentDone();
         orderRepository.save(order);
     }
+
+    public boolean actorCanPayment(Member actor, Order order) {
+        return actorCanSee(actor, order);
+    }
 }
