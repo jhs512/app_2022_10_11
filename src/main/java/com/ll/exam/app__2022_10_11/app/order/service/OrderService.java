@@ -1,6 +1,5 @@
 package com.ll.exam.app__2022_10_11.app.order.service;
 
-import antlr.PreservingFileWriter;
 import com.ll.exam.app__2022_10_11.app.cart.entity.CartItem;
 import com.ll.exam.app__2022_10_11.app.cart.service.CartService;
 import com.ll.exam.app__2022_10_11.app.member.entity.Member;
@@ -60,6 +59,9 @@ public class OrderService {
             order.addOrderItem(orderItem);
         }
 
+        // 주문 품목으로 부터 이름을 만든다.
+        order.makeName();
+
         orderRepository.save(order);
 
         return order;
@@ -102,5 +104,17 @@ public class OrderService {
 
     public boolean actorCanSee(Member actor, Order order) {
         return actor.getId().equals(order.getBuyer().getId());
+    }
+
+    @Transactional
+    public void payByTossPayments(Order order) {
+        Member buyer = order.getBuyer();
+        int payPrice = order.calculatePayPrice();
+
+        memberService.addCash(buyer, payPrice, "주문결제충전__토스페이먼츠");
+        memberService.addCash(buyer, payPrice * -1, "주문결제__토스페이먼츠");
+
+        order.setPaymentDone();
+        orderRepository.save(order);
     }
 }
