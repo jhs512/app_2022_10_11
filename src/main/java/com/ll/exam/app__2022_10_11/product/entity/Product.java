@@ -26,4 +26,20 @@ public class Product extends BaseEntity {
     @ManyToOne(fetch = LAZY)
     private Song song;
     private int price;
+
+    public Product(long id) {
+        super(id);
+    }
+
+    public int getSalePrice() {
+        return getPrice();
+    }
+
+    public int getWholesalePrice() {
+        return (int) Math.ceil(getPrice() * 0.7);
+    }
+
+    public boolean isOrderable() {
+        return true;
+    }
 }
