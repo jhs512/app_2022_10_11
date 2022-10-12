@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/layout.html}">
+
+<head>
+    <title>주문 상세내용</title>
+</head>
+
+<body>
+<main layout:fragment="main">
+    <section class="section section-write container mx-auto">
+
+        <div class="px-2 pt-4">
+            <h1 class="font-bold text-lg">주문 상세내용</h1>
+
+            <div class="flex flex-col gap-3 mt-3">
+                <div>
+                    주문번호 : [[${order.id}]]
+                </div>
+
+                <div>
+                    주문날짜 : [[${order.createDate}]]
+                </div>
+
+                <div>
+                    주문자 : [[${order.buyer.name}]]
+                </div>
+
+                <div>
+                    주문가격 : [[${order.calculatePayPrice}]]
+                </div>
+
+                <div>
+                    <div th:each="orderItem : ${order.orderItems}">
+                        <div>
+                            음악 : [[${orderItem.product.subject}]] /
+                            아티스트 : [[${orderItem.product.author.name}]] /
+                            가격 : [[${orderItem.salePrice}]]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

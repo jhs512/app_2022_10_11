@@ -1,5 +1,6 @@
 package com.ll.exam.app__2022_10_11.app.order.service;
 
+import antlr.PreservingFileWriter;
 import com.ll.exam.app__2022_10_11.app.cart.entity.CartItem;
 import com.ll.exam.app__2022_10_11.app.cart.service.CartService;
 import com.ll.exam.app__2022_10_11.app.member.entity.Member;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -88,5 +90,17 @@ public class OrderService {
 
         order.setRefundDone();
         orderRepository.save(order);
+    }
+
+    public Optional<Order> findForPrintById(long id) {
+        return findById(id);
+    }
+
+    private Optional<Order> findById(long id) {
+        return orderRepository.findById(id);
+    }
+
+    public boolean actorCanSee(Member actor, Order order) {
+        return actor.getId().equals(order.getBuyer().getId());
     }
 }
