@@ -1,4 +1,4 @@
-package com.ll.exam.app__2022_10_11.product.entity;
+package com.ll.exam.app__2022_10_11.app.product.entity;
 
 import com.ll.exam.app__2022_10_11.app.base.entity.BaseEntity;
 import com.ll.exam.app__2022_10_11.app.member.entity.Member;

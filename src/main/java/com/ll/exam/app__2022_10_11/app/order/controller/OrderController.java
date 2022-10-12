@@ -1,4 +1,4 @@
-package com.ll.exam.app__2022_10_11.controller;
+package com.ll.exam.app__2022_10_11.app.order.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,7 +10,7 @@ import com.ll.exam.app__2022_10_11.app.order.exception.OrderIdNotMatchedExceptio
 import com.ll.exam.app__2022_10_11.app.order.exception.OrderNotEnoughRestCashException;
 import com.ll.exam.app__2022_10_11.app.order.service.OrderService;
 import com.ll.exam.app__2022_10_11.app.security.dto.MemberContext;
-import com.ll.exam.app__2022_10_11.exception.ActorCanNotSeeOrderException;
+import com.ll.exam.app__2022_10_11.app.order.exception.ActorCanNotSeeOrderException;
 import com.ll.exam.app__2022_10_11.util.Ut;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;

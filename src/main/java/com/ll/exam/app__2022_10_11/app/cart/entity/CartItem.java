@@ -2,7 +2,7 @@ package com.ll.exam.app__2022_10_11.app.cart.entity;
 
 import com.ll.exam.app__2022_10_11.app.base.entity.BaseEntity;
 import com.ll.exam.app__2022_10_11.app.member.entity.Member;
-import com.ll.exam.app__2022_10_11.product.entity.Product;
+import com.ll.exam.app__2022_10_11.app.product.entity.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

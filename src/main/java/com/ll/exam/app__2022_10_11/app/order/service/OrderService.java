@@ -7,7 +7,7 @@ import com.ll.exam.app__2022_10_11.app.member.service.MemberService;
 import com.ll.exam.app__2022_10_11.app.order.entity.Order;
 import com.ll.exam.app__2022_10_11.app.order.entity.OrderItem;
 import com.ll.exam.app__2022_10_11.app.order.repository.OrderRepository;
-import com.ll.exam.app__2022_10_11.product.entity.Product;
+import com.ll.exam.app__2022_10_11.app.product.entity.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
