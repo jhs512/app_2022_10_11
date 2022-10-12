@@ -79,7 +79,7 @@ public class OrderService {
             throw new RuntimeException("예치금이 부족합니다.");
         }
 
-        memberService.addCash(buyer, payPrice * -1, "주문결제__예치금결제");
+        memberService.addCash(buyer, payPrice * -1, "주문__%d__사용__예치금".formatted(order.getId()));
 
         order.setPaymentDone();
         orderRepository.save(order);
@@ -88,7 +88,7 @@ public class OrderService {
     @Transactional
     public void refund(Order order) {
         int payPrice = order.getPayPrice();
-        memberService.addCash(order.getBuyer(), payPrice, "주문환불__예치금환불");
+        memberService.addCash(order.getBuyer(), payPrice, "주문__%d__환불__예치금".formatted(order.getId()));
 
         order.setRefundDone();
         orderRepository.save(order);
@@ -107,12 +107,17 @@ public class OrderService {
     }
 
     @Transactional
-    public void payByTossPayments(Order order) {
+    public void payByTossPayments(Order order, long useRestCash) {
         Member buyer = order.getBuyer();
         int payPrice = order.calculatePayPrice();
 
-        memberService.addCash(buyer, payPrice, "주문결제충전__토스페이먼츠");
-        memberService.addCash(buyer, payPrice * -1, "주문결제__토스페이먼츠");
+        long pgPayPrice = payPrice - useRestCash;
+        memberService.addCash(buyer, pgPayPrice, "주문__%d__충전__토스페이먼츠".formatted(order.getId()));
+        memberService.addCash(buyer, pgPayPrice * -1, "주문__%d__사용__토스페이먼츠".formatted(order.getId()));
+
+        if ( useRestCash > 0 ) {
+            memberService.addCash(buyer, useRestCash * -1, "주문__%d__사용__예치금".formatted(order.getId()));
+        }
 
         order.setPaymentDone();
         orderRepository.save(order);
