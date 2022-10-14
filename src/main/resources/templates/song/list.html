@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/layout.html}">
+
+<head>
+    <title>내 음원 목록</title>
+</head>
+
+<body>
+<main layout:fragment="main">
+    <section class="section section-write container mx-auto">
+
+        <div class="px-2 pt-4">
+            <h1 class="font-bold text-lg">내 음원 목록</h1>
+
+            <ul>
+                <li th:each="song : ${songs}" class="flex items-center">
+                    <a th:href="@{|/song/${song.id}|}">
+                        <svg width="80" height="80" th:data-jdenticon-value="${song.jdenticon}"></svg>
+                    </a>
+
+                    <a th:href="@{|/song/${song.id}|}">
+                        <span
+                                th:text="${song.subject}"></span>
+                    </a>
+
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

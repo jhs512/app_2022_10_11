@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,6 +41,18 @@ public class SongController {
         Member author = memberContext.getMember();
         Song song = songService.create(author, songForm.getSubject(), songForm.getContent());
         return "redirect:/song/" + song.getId() + "?msg=" + Ut.url.encode("%d번 음원이 생성되었습니다.".formatted(song.getId()));
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/list")
+    public String showList(@AuthenticationPrincipal MemberContext memberContext, Model model) {
+        Member actor = memberContext.getMember();
+
+        List<Song> songs = songService.findAllByAuthorId(actor.getId());
+
+        model.addAttribute("songs", songs);
+
+        return "song/list";
     }
 
     @PreAuthorize("isAuthenticated()")
