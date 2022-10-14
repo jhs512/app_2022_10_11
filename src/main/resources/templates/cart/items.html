@@ -32,7 +32,7 @@
                 <input type="hidden" name="ids">
             </form>
 
-            <a href="javascript:;" onclick="OrderCartItemsForm__submit();" class="btn btn-primary btn-sm">주문하기</a>
+            <a href="javascript:;" onclick="OrderCartItemsForm__submit();" class="btn btn-primary btn-sm">전체 주문하기</a>
             <form method="POST" name="orderCartItemsForm" th:action="@{|/order/makeOrder|}" hidden></form>
 
             <script>
@@ -73,7 +73,7 @@
                 }
 
                 function OrderCartItemsForm__submit() {
-
+                    document.orderCartItemsForm.submit();
                 }
             </script>
         </div>
