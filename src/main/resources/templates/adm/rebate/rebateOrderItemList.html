@@ -34,7 +34,8 @@
                     <tbody>
                     <tr th:each="item : ${items}">
                         <td>
-                            <input onchange="OrderItemCheckbox__changed();" th:if="${item.rebateAvailable}" type="checkbox" class="orderItemCheckbox checkbox">
+                            <input onchange="OrderItemCheckbox__changed();" th:if="${item.rebateAvailable}"
+                                   type="checkbox" class="orderItemCheckbox checkbox" th:value="${item.orderItem.id}">
                         </td>
                         <td th:text="${item.orderItem.id}"></td>
                         <td th:text="${item.payDate}"></td>
@@ -49,7 +50,8 @@
                         <td>
                             <a th:if="${item.rebateAvailable}" href="javascript:;" onclick="$(this).next().submit();"
                                class="btn btn-primary btn-xs">건별정산</a>
-                            <form method="POST" th:action="@{|/adm/rebate/rebateOne/${item.orderItem.id}|}" hidden></form>
+                            <form method="POST" th:action="@{|/adm/rebate/rebateOne/${item.orderItem.id}|}"
+                                  hidden></form>
                         </td>
                     </tr>
                     </tbody>
@@ -57,7 +59,7 @@
 
                 <a href="javascript:;" onclick="RebateForm__submit();" class="btn btn-primary btn-sm">선택정산</a>
                 <form method="POST" name="rebateForm" th:action="@{|/adm/rebate/rebate|}" hidden>
-
+                    <input type="hidden" name="ids">
                 </form>
 
                 <script>
@@ -80,17 +82,19 @@
                     let RebateForm__submitDone = false;
 
                     function RebateForm__submit() {
-                        if ( RebateForm__submitDone ) return;
+                        if (RebateForm__submitDone) return;
 
                         const form = document.rebateForm;
 
                         const $checked = $('.orderItemCheckbox:checked');
 
-                        if ( $checked.length == 0 ) {
+                        if ($checked.length == 0) {
                             alert('정산할 주문품목을 선택해주세요.');
                             return;
                         }
 
+                        const ids = $checked.map((index, el) => $(el).val()).get();
+                        form.ids.value = ids;
                         form.submit();
                         RebateForm__submitDone = true;
                     }
