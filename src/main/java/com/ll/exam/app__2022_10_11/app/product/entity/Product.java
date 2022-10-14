@@ -42,4 +42,9 @@ public class Product extends BaseEntity {
     public boolean isOrderable() {
         return true;
     }
+
+
+    public String getJdenticon() {
+        return "product__" + getId();
+    }
 }

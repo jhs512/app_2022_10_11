@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/layout.html}">
+
+<head>
+    <title>장바구니</title>
+</head>
+
+<body>
+<main layout:fragment="main">
+    <section class="section section-write container mx-auto">
+
+        <div class="px-2 pt-4">
+            <h1 class="font-bold text-lg">장바구니</h1>
+
+            <input type="checkbox" class="cartItemCheckboxAll checkbox">
+
+            <ul>
+                <li th:each="item : ${items}" class="flex items-center">
+                    <input onchange="CartItemCheckbox__changed();" type="checkbox" class="cartItemCheckbox checkbox" th:value="${item.id}">
+                    <svg width="80" height="80" th:data-jdenticon-value="${item.product.jdenticon}"></svg>
+                    <div>
+                        <span th:text="${item.product.author.name}"></span> <span
+                            th:text="${item.product.subject}"></span> <span th:text="${item.product.salePrice}"></span>
+                    </div>
+
+                    </span>
+                </li>
+            </ul>
+
+            <a href="javascript:;" onclick="RemoveCartItemsForm__submit();" class="btn btn-warning btn-outline btn-sm">선택삭제</a>
+            <form method="POST" name="removeCartItemsForm" th:action="@{|/cart/removeItems|}" hidden>
+                <input type="hidden" name="ids">
+            </form>
+
+            <a href="javascript:;" onclick="OrderCartItemsForm__submit();" class="btn btn-primary btn-sm">주문하기</a>
+            <form method="POST" name="orderCartItemsForm" th:action="@{|/order/makeOrder|}" hidden></form>
+
+            <script>
+                // 전체선택 체크박스
+                const $cartItemCheckboxAll = $('.cartItemCheckboxAll');
+                // 아이템 체크박스
+                const $cartItemCheckbox = $('.cartItemCheckbox');
+
+                $cartItemCheckboxAll.change(function () {
+                    const allChecked = $(this).prop('checked');
+                    $cartItemCheckbox.prop('checked', allChecked); // 아이템 체크박스들에게 체크상태 동기화
+                });
+
+                function CartItemCheckbox__changed() {
+                    const allChecked = $cartItemCheckbox.length == $('.cartItemCheckbox:checked').length;
+
+                    $cartItemCheckboxAll.prop('checked', allChecked);
+                }
+
+                let RemoveCartItemsForm__submitDone = false;
+
+                function RemoveCartItemsForm__submit() {
+                    if (RemoveCartItemsForm__submitDone) return;
+
+                    const form = document.removeCartItemsForm;
+
+                    const $checked = $('.cartItemCheckbox:checked');
+
+                    if ($checked.length == 0) {
+                        alert('삭제할 장바구니 품목을 선택해주세요.');
+                        return;
+                    }
+
+                    const ids = $checked.map((index, el) => $(el).val()).get();
+                    form.ids.value = ids;
+                    form.submit();
+                    RemoveCartItemsForm__submitDone = true;
+                }
+
+                function OrderCartItemsForm__submit() {
+
+                }
+            </script>
+        </div>
+
+        </div>
+    </section>
+
+</main>
+</body>
+</html>

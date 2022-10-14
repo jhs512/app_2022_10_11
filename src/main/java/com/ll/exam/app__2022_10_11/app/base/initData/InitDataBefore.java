@@ -5,10 +5,10 @@ import com.ll.exam.app__2022_10_11.app.member.entity.Member;
 import com.ll.exam.app__2022_10_11.app.member.service.MemberService;
 import com.ll.exam.app__2022_10_11.app.order.entity.Order;
 import com.ll.exam.app__2022_10_11.app.order.service.OrderService;
-import com.ll.exam.app__2022_10_11.app.song.entity.Song;
-import com.ll.exam.app__2022_10_11.app.song.service.SongService;
 import com.ll.exam.app__2022_10_11.app.product.entity.Product;
 import com.ll.exam.app__2022_10_11.app.product.service.ProductService;
+import com.ll.exam.app__2022_10_11.app.song.entity.Song;
+import com.ll.exam.app__2022_10_11.app.song.service.SongService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -82,5 +82,12 @@ public interface InitDataBefore {
                         product2
                 )
         );
+
+        cartService.addItem(member1, product1);
+        cartService.addItem(member1, product2);
+        cartService.addItem(member1, product3);
+
+        cartService.addItem(member2, product4);
+        cartService.addItem(member2, product5);
     }
 }

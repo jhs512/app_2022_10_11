@@ -6,7 +6,6 @@ import com.ll.exam.app__2022_10_11.app.cash.service.CashService;
 import com.ll.exam.app__2022_10_11.app.member.entity.Member;
 import com.ll.exam.app__2022_10_11.app.member.exception.AlreadyJoinException;
 import com.ll.exam.app__2022_10_11.app.member.repository.MemberRepository;
-import com.ll.exam.app__2022_10_11.util.Ut;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.result.UpdateCountOutput;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
