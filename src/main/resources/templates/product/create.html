@@ -50,7 +50,7 @@
                     <label class="label">
                         <span class="label-text">음원</span>
                     </label>
-                    <select class="select select-bordered" name="songId">
+                    <select class="select select-bordered select-2" name="songId">
                         <option th:each="song : ${songs}" th:value="${song.id}" th:text="|${song.id}. ${song.subject}|"></option>
                     </select>
                 </div>
